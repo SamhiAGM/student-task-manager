@@ -1153,7 +1153,8 @@ footer .container {
   }
 
   .form-shell,
-  .auth-card {
+  .auth-card,
+  .auth-shell {
     grid-template-columns: 1fr;
   }
 
