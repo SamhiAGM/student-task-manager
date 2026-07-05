@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verify OTP | Student Task Management</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="header-inner container">
+      <div class="brand-group">
+        <h1>Student Task Management</h1>
+        <nav>
+          <a href="index.html">Home</a>
+          <a href="dashboard.html">Dashboard</a>
+          <a href="login.html">Login</a>
+          <a href="forgot-password.html">Forgot Password</a>
+        </nav>
+      </div>
+      <button id="themeToggle" class="theme-toggle compact" type="button">Night Mode</button>
+    </div>
+  </header>
+
+  <main class="container auth-page">
+    <section class="auth-shell">
+      <div class="auth-copy auth-gradient-reset">
+        <span class="eyebrow">Step 2 of 3</span>
+        <h2>Verify the OTP we sent to your Gmail inbox</h2>
+        <p>Enter the email address you used and the 6-digit OTP to unlock the password reset page.</p>
+        <div class="auth-bullets">
+          <div><strong>Fast verification</strong><span>Use the code before it expires.</span></div>
+          <div><strong>Security first</strong><span>Attempts are limited automatically.</span></div>
+          <div><strong>Continue safely</strong><span>Reset your password only after verification.</span></div>
+        </div>
+      </div>
+
+      <form class="auth-card" id="verifyOtpForm">
+        <h3>Verify OTP</h3>
+        <p class="auth-subtitle">Check your Gmail inbox and enter the 6-digit code below.</p>
+
+        <label for="verifyEmail">Email</label>
+        <input type="email" id="verifyEmail" placeholder="you@example.com" required>
+
+        <label for="verifyOtp">6-Digit OTP</label>
+        <input type="text" id="verifyOtp" inputmode="numeric" maxlength="6" placeholder="123456" required>
+
+        <button class="button auth-button" type="submit" data-loading-text="Verifying OTP...">Verify OTP</button>
+        <p id="message" class="message auth-message"></p>
+        <p class="auth-footer">Need a new code? <a href="forgot-password.html">Request OTP again</a></p>
+      </form>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

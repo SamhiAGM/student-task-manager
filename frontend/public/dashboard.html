@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | Student Task Management</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-require-auth="true">
+  <header>
+    <div class="header-inner container">
+      <div class="brand-group">
+        <h1>Student Task Management</h1>
+        <nav>
+          <a href="index.html">Home</a>
+          <a href="dashboard.html">Dashboard</a>
+          <a href="add.html">Add Task</a>
+          <a href="view.html">View Tasks</a>
+        </nav>
+      </div>
+      <div class="dashboard-actions">
+        <button id="themeToggle" class="theme-toggle" type="button">Night Mode</button>
+        <button id="logoutButton" class="button secondary" type="button">Logout</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container dashboard-page">
+    <section class="dashboard-hero">
+      <div class="dashboard-hero-copy">
+        <span class="dashboard-tag">Welcome back, <strong id="dashboardUser">Student</strong></span>
+        <h2>Your colorful task control center</h2>
+        <p>Add tasks fast, view and search everything, update progress, and track pending vs completed work from one place.</p>
+        <p id="dashboardMessage" class="message dashboard-message"></p>
+
+        <div class="dashboard-options" aria-label="Dashboard options">
+          <a class="option-pill add" href="add.html">Add Task</a>
+          <a class="option-pill view" href="view.html">View Tasks</a>
+          <a class="option-pill update" href="view.html">Update Task</a>
+          <a class="option-pill track" href="view.html">Search &amp; Track</a>
+        </div>
+      </div>
+      <div class="dashboard-stats">
+        <article class="stat-card stat-total">
+          <h3>Total Tasks</h3>
+          <p id="totalTasks">0</p>
+        </article>
+        <article class="stat-card stat-pending">
+          <h3>Pending</h3>
+          <p id="pendingTasks">0</p>
+        </article>
+        <article class="stat-card stat-completed">
+          <h3>Completed</h3>
+          <p id="completedTasks">0</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="dashboard-grid">
+      <a class="dash-card dash-add" href="add.html">
+        <h3>Add Task</h3>
+        <p>Create a new task with title, due date, and status.</p>
+        <span>Open Add Task</span>
+      </a>
+
+      <a class="dash-card dash-view" href="view.html">
+        <h3>View Tasks</h3>
+        <p>See all tasks in table format and manage quickly.</p>
+        <span>Open View Tasks</span>
+      </a>
+
+      <a class="dash-card dash-update" href="view.html">
+        <h3>Update Task</h3>
+        <p>Edit details or change status from task actions.</p>
+        <span>Edit from View Page</span>
+      </a>
+
+      <a class="dash-card dash-track" href="view.html">
+        <h3>Search and Track</h3>
+        <p>Filter tasks by title and track completed progress.</p>
+        <span>Track in View Page</span>
+      </a>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Task | Student Task Management</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-require-auth="true">
+  <header>
+    <div class="header-inner container">
+      <div class="brand-group">
+        <h1>Student Task Management</h1>
+        <nav>
+          <a href="index.html">Home</a>
+          <a href="dashboard.html">Dashboard</a>
+          <a href="login.html">Login</a>
+          <a href="signup.html">Sign Up</a>
+          <a href="add.html">Add Task</a>
+          <a href="view.html">View Tasks</a>
+        </nav>
+      </div>
+      <button id="themeToggle" class="theme-toggle" type="button">Night Mode</button>
+    </div>
+  </header>
+
+  <main class="container form-page">
+    <section class="form-card">
+      <div class="form-shell">
+        <aside class="accent-panel">
+          <h3>Add Task, stay ahead</h3>
+          <p>Turn deadlines into a colorful workflow with fast task entry and clear priorities.</p>
+          <ul>
+            <li>Capture assignments and notes in one place.</li>
+            <li>Mark work as pending or completed instantly.</li>
+            <li>Keep your schedule visible and easy to manage.</li>
+          </ul>
+          <div class="mini-stats">
+            <div class="mini-stat"><strong>24/7</strong><span>Always ready</span></div>
+            <div class="mini-stat"><strong>1 tap</strong><span>Fast task save</span></div>
+            <div class="mini-stat"><strong>3 steps</strong><span>Simple workflow</span></div>
+          </div>
+        </aside>
+
+        <div class="form-content">
+          <h2>Add New Task</h2>
+          <p class="subtitle">Create a task, set a date, and choose its status in a clean, colorful form.</p>
+          <form id="taskForm">
+            <div class="input-grid">
+              <div class="full-width">
+                <label for="title">Task Title</label>
+                <input type="text" id="title" name="title" placeholder="Enter your task title" required>
+              </div>
+
+              <div class="full-width">
+                <label for="description">Description</label>
+                <textarea id="description" name="description" rows="5" placeholder="Write a short task description"></textarea>
+              </div>
+
+              <div>
+                <label for="due_date">Due Date</label>
+                <input type="date" id="due_date" name="due_date" required>
+              </div>
+
+              <div>
+                <label for="status">Status</label>
+                <select id="status" name="status">
+                  <option value="Pending">Pending</option>
+                  <option value="Completed">Completed</option>
+                </select>
+              </div>
+
+              <div class="full-width">
+                <label for="pdf_file">Upload PDF (Optional)</label>
+                <input type="file" id="pdf_file" name="pdf_file" accept=".pdf">
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="button">Save Task</button>
+              <a class="button secondary" href="view.html">View Tasks</a>
+            </div>
+          </form>
+          <p id="message" class="message"></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | Student Task Management</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="header-inner container">
+      <div class="brand-group">
+        <h1>Student Task Management</h1>
+        <nav>
+          <a href="index.html">Home</a>
+          <a href="dashboard.html">Dashboard</a>
+          <a href="add.html">Add Task</a>
+          <a href="view.html">View Tasks</a>
+        </nav>
+      </div>
+      <button id="themeToggle" class="theme-toggle compact" type="button">Night Mode</button>
+    </div>
+  </header>
+
+  <main class="container auth-page">
+    <section class="auth-shell">
+      <div class="auth-copy auth-gradient-login">
+        <span class="eyebrow">Welcome back</span>
+        <h2>Login to your task dashboard</h2>
+        <p>Track assignments, deadlines, and progress from one clean, colorful workspace.</p>
+        <div class="auth-bullets">
+          <div><strong>Fast access</strong><span>Jump into your tasks in seconds.</span></div>
+          <div><strong>Smart tracking</strong><span>Keep every deadline in view.</span></div>
+          <div><strong>Beautiful UI</strong><span>Use it comfortably day or night.</span></div>
+        </div>
+      </div>
+
+      <form class="auth-card" id="loginForm">
+        <h3>Sign In</h3>
+        <p class="auth-subtitle">Use your account details to continue.</p>
+
+        <label for="loginEmail">Email</label>
+        <input type="email" id="loginEmail" placeholder="you@example.com" required>
+
+        <label for="loginPassword">Password</label>
+        <input type="password" id="loginPassword" placeholder="Enter your password" required>
+
+        <div class="auth-row">
+          <label class="auth-check">
+            <input type="checkbox">
+            <span>Remember me</span>
+          </label>
+          <a href="forgot-password.html">Forgot Password?</a>
+        </div>
+
+        <button class="button auth-button" type="submit">Login</button>
+        <p id="message" class="message auth-message"></p>
+        <p class="auth-footer">No account yet? <a href="signup.html">Create one</a></p>
+      </form>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

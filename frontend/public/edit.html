@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Task | Student Task Management</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-require-auth="true">
+  <header>
+    <div class="header-inner container">
+      <div class="brand-group">
+        <h1>Student Task Management</h1>
+        <nav>
+          <a href="index.html">Home</a>
+          <a href="dashboard.html">Dashboard</a>
+          <a href="add.html">Add Task</a>
+          <a href="view.html">View Tasks</a>
+        </nav>
+      </div>
+      <button id="themeToggle" class="theme-toggle" type="button">Night Mode</button>
+    </div>
+  </header>
+
+  <main class="container form-page">
+    <section class="form-card">
+      <h2>Edit Task</h2>
+      <form id="editForm">
+        <input type="hidden" id="taskId">
+
+        <label for="editTitle">Task Title</label>
+        <input type="text" id="editTitle" name="title" required>
+
+        <label for="editDescription">Description</label>
+        <textarea id="editDescription" name="description" rows="4"></textarea>
+
+        <label for="editDueDate">Due Date</label>
+        <input type="date" id="editDueDate" name="due_date" required>
+
+        <label for="editStatus">Status</label>
+        <select id="editStatus" name="status">
+          <option value="Pending">Pending</option>
+          <option value="Completed">Completed</option>
+        </select>
+
+        <label for="editPdfFile">Update PDF (Optional)</label>
+        <input type="file" id="editPdfFile" name="pdf_file" accept=".pdf">
+
+
+        <div class="form-actions">
+          <button type="submit" class="button">Update Task</button>
+          <a class="button secondary" href="view.html">Cancel</a>
+        </div>
+      </form>
+      <p id="message" class="message"></p>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

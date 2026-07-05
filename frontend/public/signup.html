@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up | Student Task Management</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="header-inner container">
+      <div class="brand-group">
+        <h1>Student Task Management</h1>
+        <nav>
+          <a href="index.html">Home</a>
+          <a href="dashboard.html">Dashboard</a>
+          <a href="login.html">Login</a>
+          <a href="add.html">Add Task</a>
+        </nav>
+      </div>
+      <button id="themeToggle" class="theme-toggle compact" type="button">Night Mode</button>
+    </div>
+  </header>
+
+  <main class="container auth-page">
+    <section class="auth-shell">
+      <div class="auth-copy auth-gradient-signup">
+        <span class="eyebrow">Create your account</span>
+        <h2>Start organizing your student life</h2>
+        <p>Set up your account and begin managing tasks with a bright, focused dashboard.</p>
+        <div class="auth-bullets">
+          <div><strong>Stay organized</strong><span>Keep classes, assignments, and goals together.</span></div>
+          <div><strong>Personalized view</strong><span>Use a workflow that fits your routine.</span></div>
+          <div><strong>Track progress</strong><span>Move tasks from pending to completed easily.</span></div>
+        </div>
+      </div>
+
+      <form class="auth-card" id="signupForm">
+        <h3>Create Account</h3>
+        <p class="auth-subtitle">Fill in your details to get started.</p>
+
+        <label for="signupName">Full Name</label>
+        <input type="text" id="signupName" placeholder="Your name" required>
+
+        <label for="signupEmail">Email</label>
+        <input type="email" id="signupEmail" placeholder="you@example.com" required>
+
+        <label for="signupPassword">Password</label>
+        <input type="password" id="signupPassword" placeholder="Create a password" required>
+
+        <label for="signupConfirm">Confirm Password</label>
+        <input type="password" id="signupConfirm" placeholder="Confirm your password" required>
+
+        <div class="auth-row">
+          <label class="auth-check">
+            <input type="checkbox" required>
+            <span>I agree to the terms</span>
+          </label>
+        </div>
+
+        <button class="button auth-button" type="submit">Sign Up</button>
+        <p id="message" class="message auth-message"></p>
+        <p class="auth-footer">Already have an account? <a href="login.html">Login</a></p>
+      </form>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

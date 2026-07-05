@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Task Management</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="header-inner container">
+      <div class="brand-group">
+        <h1>Student Task Management</h1>
+        <nav>
+          <a href="index.html">Home</a>
+          <a href="login.html">Login</a>
+          <a href="signup.html">Sign Up</a>
+          <a href="add.html">Add Task</a>
+          <a href="view.html">View Tasks</a>
+        </nav>
+      </div>
+      <button id="themeToggle" class="theme-toggle" type="button">Night Mode</button>
+    </div>
+  </header>
+
+  <main class="container home-page">
+    <section class="hero">
+      <div class="hero-content">
+        <span class="hero-tagline">Dream big, start small, and never stop.</span>
+        <h2>Manage your tasks with color, speed, and confidence</h2>
+        <p>Keep every assignment on track with task status, due dates, and easy editing in one student-friendly dashboard.</p>
+        <div class="hero-actions">
+          <a class="button" href="dashboard.html">Dashboard</a>
+          <a class="button" href="add.html">Add Task</a>
+          <a class="button secondary" href="view.html">View Tasks</a>
+          <a class="button ghost" href="login.html">Login</a>
+        </div>
+      </div>
+      <div class="hero-art">
+        <div class="book-card">
+          <span class="book-icon">📚</span>
+          <h3>Study Plan</h3>
+          <p>Organize assignments, deadlines, and progress in one beautiful place.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="features">
+      <a class="feature-card card-link" href="add.html">
+        <h3>Add Tasks</h3>
+        <p>Create new tasks with title, description, due date, and status.</p>
+      </a>
+      <a class="feature-card card-link" href="view.html">
+        <h3>Update Tasks</h3>
+        <p>Edit tasks, change status, or mark work as completed.</p>
+      </a>
+      <a class="feature-card card-link" href="view.html">
+        <h3>Search & Track</h3>
+        <p>Search by title and keep track of pending or completed items.</p>
+      </a>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>Student Task Management System | Built with Node.js, Express, and MySQL</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
