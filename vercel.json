@@ -12,15 +12,15 @@
   ],
   "routes": [
     {
-      "src": "/auth/(.*)",
+      "src": "/auth(?:/.*)?",
       "dest": "/backend/server.js"
     },
     {
-      "src": "/tasks/(.*)",
+      "src": "/tasks(?:/.*)?",
       "dest": "/backend/server.js"
     },
     {
-      "src": "/uploads/(.*)",
+      "src": "/uploads(?:/.*)?",
       "dest": "/backend/server.js"
     },
     {
