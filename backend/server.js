@@ -22,16 +22,20 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'frontend', 'public', 'index.html'));
 });
 
-// Initialize MongoDB connection
-if (process.env.MONGO_URI) {
-  connectMongo().then((mongooseInstance) => {
-    if (mongooseInstance) {
-      console.log('MongoDB connection successful');
-    } else {
-      console.log('MongoDB connection failed, falling back to mock');
+// Middleware to ensure DB connection is ready before handling API requests
+app.use(async (req, res, next) => {
+  if (process.env.MONGO_URI && (req.path.startsWith('/auth') || req.path.startsWith('/tasks'))) {
+    try {
+      await connectMongo();
+    } catch (err) {
+      console.error('Failed to ensure MongoDB connection:', err);
+      // Let it fall through so routes can handle failure (or mock can take over)
     }
-  }).catch(console.error);
+  }
+  next();
+});
 
+if (process.env.MONGO_URI) {
   // Mount routers
   app.use('/auth', authRouter);
   app.use('/tasks', mongoTasksRouter);

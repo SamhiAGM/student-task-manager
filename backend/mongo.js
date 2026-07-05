@@ -4,6 +4,12 @@ function wait(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+let cached = global.mongoose;
+
+if (!cached) {
+  cached = global.mongoose = { conn: null, promise: null };
+}
+
 async function connectMongo() {
   const uri = process.env.MONGO_URI;
   if (!uri) {
@@ -11,29 +17,32 @@ async function connectMongo() {
     return null;
   }
 
-  const maxAttempts = Number(process.env.MONGO_CONNECT_RETRIES || 5);
-  const retryDelayMs = Number(process.env.MONGO_CONNECT_RETRY_DELAY_MS || 1500);
-
-  for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
-    try {
-      await mongoose.connect(uri, {
-        serverSelectionTimeoutMS: 5000,
-        dbName: process.env.MONGO_DB_NAME || 'student_task_management'
-      });
-      console.log('Connected to MongoDB.');
-      return mongoose;
-    } catch (err) {
-      const lastAttempt = attempt === maxAttempts;
-      console.error(`MongoDB connection attempt ${attempt}/${maxAttempts} failed:`, err.message);
-      if (lastAttempt) {
-        console.error('MongoDB connection error:', err.message);
-        return null;
-      }
-      await wait(retryDelayMs);
-    }
+  if (cached.conn) {
+    return cached.conn;
   }
 
-  return null;
+  if (!cached.promise) {
+    const opts = {
+      serverSelectionTimeoutMS: 5000,
+      dbName: process.env.MONGO_DB_NAME || 'student_task_management'
+    };
+
+    console.log('Attempting to connect to MongoDB...');
+    cached.promise = mongoose.connect(uri, opts).then((mongoose) => {
+      console.log('Connected to MongoDB successfully.');
+      return mongoose;
+    });
+  }
+
+  try {
+    cached.conn = await cached.promise;
+  } catch (e) {
+    cached.promise = null;
+    console.error('MongoDB connection error:', e.message);
+    throw e;
+  }
+
+  return cached.conn;
 }
 
 module.exports = { connectMongo, mongoose };
