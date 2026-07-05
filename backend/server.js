@@ -22,32 +22,30 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'frontend', 'public', 'index.html'));
 });
 
-async function startServer() {
-  // MongoDB is the primary backend for this project.
-  // If MongoDB is unreachable, the app falls back to local mock task data so the UI still works.
-  if (process.env.MONGO_URI) {
-    try {
-      const mongooseInstance = await connectMongo();
-      if (mongooseInstance) {
-        app.use('/auth', authRouter);
-        app.use('/tasks', mongoTasksRouter);
-        app.use('/reset-password.html', express.static(path.join(__dirname, '..', 'frontend', 'public', 'reset-password.html')));
-        app.use('/forgot-password.html', express.static(path.join(__dirname, '..', 'frontend', 'public', 'forgot-password.html')));
-        console.log('MongoDB task routes mounted at /tasks');
-      } else {
-        app.use('/tasks', mockTasksRouter);
-        console.log('MongoDB unavailable; mock task routes mounted at /tasks');
-      }
-    } catch (err) {
-      app.use('/tasks', mockTasksRouter);
-      console.log('MongoDB unavailable; mock task routes mounted at /tasks');
-      console.error('Failed to initialize MongoDB:', err.message);
+// Initialize MongoDB connection
+if (process.env.MONGO_URI) {
+  connectMongo().then((mongooseInstance) => {
+    if (mongooseInstance) {
+      console.log('MongoDB connection successful');
+    } else {
+      console.log('MongoDB connection failed, falling back to mock');
     }
-  } else {
-    app.use('/tasks', mockTasksRouter);
-    console.log('MongoDB not configured; mock task routes mounted at /tasks');
-  }
+  }).catch(console.error);
 
+  // Mount routers
+  app.use('/auth', authRouter);
+  app.use('/tasks', mongoTasksRouter);
+} else {
+  console.log('MongoDB not configured; mock task routes mounted at /tasks');
+  app.use('/tasks', mockTasksRouter);
+}
+
+// Serve extra HTML files
+app.use('/reset-password.html', express.static(path.join(__dirname, '..', 'frontend', 'public', 'reset-password.html')));
+app.use('/forgot-password.html', express.static(path.join(__dirname, '..', 'frontend', 'public', 'forgot-password.html')));
+
+// For local development
+if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
   const server = app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
   });
@@ -61,4 +59,5 @@ async function startServer() {
   });
 }
 
-startServer();
+// Export the Express API for Vercel Serverless Functions
+module.exports = app;
