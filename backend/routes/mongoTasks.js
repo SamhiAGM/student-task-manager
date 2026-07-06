@@ -13,6 +13,19 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
+function sanitizeText(value, maxLength = 500) {
+  return String(value ?? '')
+    .replace(/<[^>]*>/g, '')
+    .replace(/[\u0000-\u001F\u007F]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .slice(0, maxLength);
+}
+
+function normalizeStatus(status) {
+  return String(status || '').trim() === 'Completed' ? 'Completed' : 'Pending';
+}
+
 function serializeTask(task) {
   const dueDate = task.due_date ? new Date(task.due_date) : null;
 
@@ -81,16 +94,17 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', upload.single('pdf_file'), async (req, res) => {
   const Task = getTaskModel();
-  if (!req.body.title || !req.body.title.trim()) {
+  const title = sanitizeText(req.body.title, 120);
+  if (!title) {
     return res.status(400).json({ error: 'Title is required' });
   }
 
   try {
     const saved = await new Task({
-      title: req.body.title,
-      description: req.body.description,
+      title,
+      description: sanitizeText(req.body.description, 2000),
       due_date: req.body.due_date,
-      status: req.body.status || 'Pending',
+      status: normalizeStatus(req.body.status),
       pdf_url: req.file ? '/uploads/' + req.file.filename : ''
     }).save();
     res.status(201).json(serializeTask(saved));
@@ -104,6 +118,18 @@ router.put('/:id', upload.single('pdf_file'), async (req, res) => {
 
   try {
     const updateData = { ...req.body };
+    if (Object.prototype.hasOwnProperty.call(req.body, 'title')) {
+      updateData.title = sanitizeText(req.body.title, 120);
+      if (!updateData.title) {
+        return res.status(400).json({ error: 'Title is required' });
+      }
+    }
+    if (Object.prototype.hasOwnProperty.call(req.body, 'description')) {
+      updateData.description = sanitizeText(req.body.description, 2000);
+    }
+    if (Object.prototype.hasOwnProperty.call(req.body, 'status')) {
+      updateData.status = normalizeStatus(req.body.status);
+    }
     if (req.file) {
       updateData.pdf_url = '/uploads/' + req.file.filename;
     }
