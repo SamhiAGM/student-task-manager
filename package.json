@@ -2,6 +2,7 @@
   "name": "student-task-management",
   "private": true,
   "scripts": {
+    "build": "npm install --prefix backend",
     "dev": "npm --prefix backend run dev",
     "start": "npm --prefix backend start"
   }
