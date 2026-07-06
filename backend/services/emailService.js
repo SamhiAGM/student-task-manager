@@ -85,8 +85,7 @@ async function sendResetOtpEmail({ to, otp }) {
     throw new Error('GMAIL_FROM is missing or still set to the placeholder value in backend/.env.');
   }
 
-  try {
-    const htmlTemplate = `
+  const htmlTemplate = `
       <div style="font-family: Arial, sans-serif; background-color: #f9f9f9; padding: 40px; margin: 0;">
         <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
           <div style="background-color: #2563eb; padding: 20px; text-align: center;">
@@ -104,14 +103,16 @@ async function sendResetOtpEmail({ to, otp }) {
       </div>
     `;
 
-    const textTemplate = [
-      `You requested a password reset for ${appName}.`,
-      '',
-      `Your 6-digit OTP is: ${otp}`,
-      '',
-      'This OTP expires in 5 minutes.',
-      'If you did not request this code, you can safely ignore this email.'
-    ].join('\n');
+  const textTemplate = [
+    `You requested a password reset for ${appName}.`,
+    '',
+    `Your 6-digit OTP is: ${otp}`,
+    '',
+    'This OTP expires in 5 minutes.',
+    'If you did not request this code, you can safely ignore this email.'
+  ].join('\n');
+
+  try {
 
     const info = await transporter.sendMail({
       from: `${appName} <${fromAddress}>`,

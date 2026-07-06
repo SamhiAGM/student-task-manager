@@ -5,7 +5,10 @@ const multer = require('multer');
 const path = require('path');
 
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, path.join(__dirname, '..', 'uploads')),
+  destination: (req, file, cb) => {
+    const uploadDir = process.env.VERCEL ? '/tmp' : path.join(__dirname, '..', 'uploads');
+    cb(null, uploadDir);
+  },
   filename: (req, file, cb) => cb(null, Date.now() + '-' + Math.round(Math.random() * 1E9) + path.extname(file.originalname))
 });
 const upload = multer({ storage });

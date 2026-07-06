@@ -1,5 +1,8 @@
 const express = require('express');
 const path = require('path');
+const helmet = require('helmet');
+const cors = require('cors');
+const rateLimit = require('express-rate-limit');
 require('dotenv').config({ path: path.join(__dirname, '.env') });
 const mongoTasksRouter = require('./routes/mongoTasks');
 const mockTasksRouter = require('./routes/mockTasks');
@@ -13,9 +16,30 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Security Middlewares
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'"],
+      styleSrc: ["'self'", "'unsafe-inline'"],
+      imgSrc: ["'self'", "data:"],
+      connectSrc: ["'self'"]
+    }
+  }
+}));
+app.use(cors());
+
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 20,
+  message: { error: 'Too many requests, please try again later.' }
+});
+
 // Serve static assets from the frontend/public folder
 app.use(express.static(path.join(__dirname, '..', 'frontend', 'public')));
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+const uploadDir = process.env.VERCEL ? '/tmp' : path.join(__dirname, 'uploads');
+app.use('/uploads', express.static(uploadDir));
 
 // Home route fallback for single page navigation
 app.get('/', (req, res) => {
@@ -37,7 +61,7 @@ app.use(async (req, res, next) => {
 
 if (process.env.MONGO_URI) {
   // Mount routers
-  app.use('/auth', authRouter);
+  app.use('/auth', authLimiter, authRouter);
   app.use('/tasks', mongoTasksRouter);
 } else {
   console.log('MongoDB not configured; mock task routes mounted at /tasks');
